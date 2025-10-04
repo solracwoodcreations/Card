@@ -1,235 +1,203 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday China</title>
+  <title>Birthday Card for China</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
   <style>
+    /* RESET */
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      background-color: black;
+      font-family: 'Great Vibes', cursive;
       overflow-x: hidden;
     }
 
+    .card-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #a020f0, #6a0dad);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1.title {
+      font-size: 2.5rem;
+      color: white;
+      text-shadow: 0 0 10px white, 0 0 20px white;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px white;
+      }
+      to {
+        text-shadow: 0 0 20px white, 0 0 30px white;
+      }
+    }
+
+    .open-btn {
+      margin-top: 2rem;
+      background: hotpink;
+      border: none;
+      padding: 1rem 2rem;
+      color: white;
+      font-size: 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .open-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .inside {
+      display: none;
+      margin-top: 2rem;
+      animation: fadeIn 1s ease-in-out forwards;
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px white;
+      animation: glow 3s infinite alternate;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      scroll-snap-type: x mandatory;
+      padding: 1rem 0;
+    }
+
+    .carousel img {
+      height: 200px;
+      border-radius: 10px;
+      scroll-snap-align: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px #fff;
+    }
+
+    /* Confetti */
     .confetti {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
-      pointer-events: none;
       width: 100%;
       height: 100%;
-      z-index: 999;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
     }
 
     .confetti-piece {
       position: absolute;
-      width: 8px;
-      height: 8px;
-      background-color: red;
+      width: 10px;
+      height: 10px;
+      background-color: hsl(var(--hue), 100%, 70%);
       opacity: 0.8;
-      border-radius: 50%;
       animation: fall linear infinite;
     }
 
     @keyframes fall {
       0% {
-        transform: translateY(-10px) rotate(0deg);
-        opacity: 1;
+        transform: translateY(-10%) rotate(0deg);
       }
       100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
+        transform: translateY(110vh) rotate(360deg);
       }
     }
 
-    .card {
-      width: 90%;
-      max-width: 500px;
-      height: 300px;
-      margin: 60px auto;
-      perspective: 1200px;
-      cursor: pointer;
-    }
-
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 1s;
-    }
-
-    .card.open .card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .card-front, .card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-front {
-      background: #ff6f91;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .glow-text {
-      font-size: 1.8em;
-      color: #fff;
-      text-shadow: 0 0 5px #fff,
-                   0 0 10px #ff66cc,
-                   0 0 20px #ff66cc,
-                   0 0 30px #ff66cc;
-      text-align: center;
-    }
-
-    .card-back {
-      background: #fff;
-      transform: rotateY(180deg);
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .message {
-      font-size: 1.2em;
-      color: #444;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .carousel {
-      position: relative;
-      width: 100%;
-      height: 150px;
-      overflow: hidden;
-      border-radius: 8px;
-    }
-
-    .carousel-images {
-      display: flex;
-      width: 300%;
-      height: 100%;
-      transition: transform 1s ease-in-out;
-    }
-
-    .carousel-images img {
-      width: 100%;
-      object-fit: cover;
-      height: 100%;
-    }
-
-    /* Responsive styles */
-    @media (min-width: 600px) {
-      .card {
-        height: 350px;
-      }
-
-      .glow-text {
-        font-size: 2.5em;
+    @media (min-width: 768px) {
+      h1.title {
+        font-size: 3.5rem;
       }
 
       .message {
-        font-size: 1.4em;
+        font-size: 2.5rem;
       }
 
-      .carousel {
-        height: 180px;
-      }
-    }
-
-    @media (min-width: 900px) {
-      .card {
-        height: 400px;
-        max-width: 600px;
-      }
-
-      .glow-text {
-        font-size: 3em;
-      }
-
-      .carousel {
-        height: 200px;
+      .carousel img {
+        height: 300px;
       }
     }
   </style>
 </head>
 <body>
+  <div class="card-container">
+    <div class="card">
+      <h1 class="title">Happy Birthday China</h1>
+      <button class="open-btn" onclick="openCard()">Click Me</button>
 
-  <div class="confetti" id="confetti"></div>
-
-  <div class="card" onclick="openCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <div class="glow-text">🎂 Happy Birthday China! 🎉</div>
-      </div>
-      <div class="card-back">
-        <div class="message">
-          May you have as great of a day<br>
-          as you are a great sister!<br>
-          ❤️ Love, your bro Carlos
-        </div>
+      <div class="inside" id="cardInside">
+        <p class="message">May you have as great of a day as you are a great sister. I love you so much. <br>– Your bro Carlos</p>
+        
         <div class="carousel">
-          <div class="carousel-images" id="carouselImages">
-            <img src="https://placekitten.com/600/200" alt="Kitten">
-            <img src="https://placebear.com/600/200" alt="Bear">
-            <img src="https://picsum.photos/600/200?random=3" alt="Random">
-          </div>
+          <!-- Replace the src URLs with real photos -->
+          <img src="https://via.placeholder.com/300x200/ff69b4/fff?text=1" alt="Photo 1" />
+          <img src="https://via.placeholder.com/300x200/a020f0/fff?text=2" alt="Photo 2" />
+          <img src="https://via.placeholder.com/300x200/ff1493/fff?text=3" alt="Photo 3" />
+          <img src="https://via.placeholder.com/300x200/ba55d3/fff?text=4" alt="Photo 4" />
+          <img src="https://via.placeholder.com/300x200/dc143c/fff?text=5" alt="Photo 5" />
         </div>
+        
+        <!-- Confetti -->
+        <div class="confetti" id="confetti"></div>
       </div>
     </div>
   </div>
 
   <script>
-    function openCard(card) {
-      card.classList.toggle("open");
-      if (card.classList.contains("open")) {
-        startConfetti();
-        startCarousel();
-      }
+    function openCard() {
+      const inside = document.getElementById('cardInside');
+      inside.style.display = 'block';
+      startConfetti();
     }
 
     function startConfetti() {
-      const container = document.getElementById("confetti");
-      for (let i = 0; i < 100; i++) {
-        const confetti = document.createElement("div");
-        confetti.classList.add("confetti-piece");
+      const confettiContainer = document.getElementById('confetti');
+      const colors = [0, 60, 120, 180, 240, 300];
 
-        const colors = ["#f00", "#0f0", "#00f", "#ff0", "#0ff", "#f0f"];
-        const size = Math.floor(Math.random() * 6) + 4;
-        confetti.style.width = size + "px";
-        confetti.style.height = size + "px";
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
-        confetti.style.top = Math.random() * -20 + "px";
-
-        container.appendChild(confetti);
-
-        setTimeout(() => {
-          container.removeChild(confetti);
-        }, 6000);
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti-piece');
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        confetti.style.opacity = Math.random();
+        confetti.style.setProperty('--hue', colors[Math.floor(Math.random() * colors.length)]);
+        confetti.style.width = confetti.style.height = Math.random() * 8 + 4 + 'px';
+        confettiContainer.appendChild(confetti);
       }
-    }
-
-    function startCarousel() {
-      const carousel = document.getElementById("carouselImages");
-      let index = 0;
-      setInterval(() => {
-        index = (index + 1) % 3;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-      }, 3000);
     }
   </script>
 </body>
