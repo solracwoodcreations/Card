@@ -97,20 +97,30 @@
     }
 
     .carousel {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      scroll-snap-type: x mandatory;
-      padding: 1rem 0;
-    }
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding: 1rem 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
 
-    .carousel img {
-      height: 200px;
-      border-radius: 10px;
-      scroll-snap-align: center;
-      flex-shrink: 0;
-      box-shadow: 0 0 10px #fff;
-    }
+.carousel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.carousel img {
+  flex: 0 0 auto;
+  width: 80%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  scroll-snap-align: center;
+  box-shadow: 0 0 10px #fff;
+}
+
+     
 
     .confetti {
       position: absolute;
