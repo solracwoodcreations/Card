@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -82,10 +82,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 20px;
     }
 
     .glow-text {
-      font-size: 2em;
+      font-size: 1.8em;
       color: #fff;
       text-shadow: 0 0 5px #fff,
                    0 0 10px #ff66cc,
@@ -175,7 +176,9 @@
       </div>
       <div class="card-back">
         <div class="message">
-          May your day be as great as you are a great sister. I love you so much! 🎈💖
+          May you have as great of a day<br>
+          as you are a great sister!<br>
+          ❤️ Love, your bro Carlos
         </div>
         <div class="carousel">
           <div class="carousel-images" id="carouselImages">
@@ -215,7 +218,7 @@
         container.appendChild(confetti);
 
         setTimeout(() => {
-          confetti.removeChild(confetti);
+          container.removeChild(confetti);
         }, 6000);
       }
     }
