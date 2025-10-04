@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
-    /* RESET */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -20,8 +19,50 @@
       overflow-x: hidden;
     }
 
-    .card-container {
+    .intro-screen {
       display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .intro-title {
+      font-size: 2.5rem;
+      color: white;
+      text-shadow: 0 0 10px white, 0 0 20px white;
+      animation: glow 2s infinite alternate;
+    }
+
+    .open-btn {
+      margin-top: 2rem;
+      background: hotpink;
+      border: none;
+      padding: 1rem 2rem;
+      color: white;
+      font-size: 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .open-btn:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px white;
+      }
+      to {
+        text-shadow: 0 0 20px white, 0 0 30px white;
+      }
+    }
+
+    .card-container {
+      display: none;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
@@ -41,53 +82,10 @@
       overflow: hidden;
     }
 
-    h1.title {
-      font-size: 2.5rem;
-      color: white;
-      text-shadow: 0 0 10px white, 0 0 20px white;
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 10px white;
-      }
-      to {
-        text-shadow: 0 0 20px white, 0 0 30px white;
-      }
-    }
-
-    .open-btn {
-      margin-top: 2rem;
-      background: hotpink;
-      border: none;
-      padding: 1rem 2rem;
-      color: white;
-      font-size: 1.5rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .open-btn:hover {
-      transform: scale(1.1);
-    }
-
-    .inside {
-      display: none;
-      margin-top: 2rem;
-      animation: fadeIn 1s ease-in-out forwards;
-      color: white;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .message {
       font-size: 1.8rem;
       margin-bottom: 2rem;
+      color: white;
       text-shadow: 0 0 10px white;
       animation: glow 3s infinite alternate;
     }
@@ -139,7 +137,7 @@
     }
 
     @media (min-width: 768px) {
-      h1.title {
+      .intro-title {
         font-size: 3.5rem;
       }
 
@@ -154,33 +152,36 @@
   </style>
 </head>
 <body>
-  <div class="card-container">
-    <div class="card">
-      <h1 class="title">Happy Birthday China</h1>
-      <button class="open-btn" onclick="openCard()">Click Me</button>
 
-      <div class="inside" id="cardInside">
-        <p class="message">May you have as great of a day as you are a great sister. I love you so much. <br>– Your bro Carlos</p>
-        
-        <div class="carousel">
-          <!-- Replace the src URLs with real photos -->
-          <img src="https://via.placeholder.com/300x200/ff69b4/fff?text=1" alt="Photo 1" />
-          <img src="https://via.placeholder.com/300x200/a020f0/fff?text=2" alt="Photo 2" />
-          <img src="https://via.placeholder.com/300x200/ff1493/fff?text=3" alt="Photo 3" />
-          <img src="https://via.placeholder.com/300x200/ba55d3/fff?text=4" alt="Photo 4" />
-          <img src="https://via.placeholder.com/300x200/dc143c/fff?text=5" alt="Photo 5" />
-        </div>
-        
-        <!-- Confetti -->
-        <div class="confetti" id="confetti"></div>
+  <!-- Intro Screen -->
+  <div class="intro-screen" id="introScreen">
+    <h1 class="intro-title">Happy Birthday China</h1>
+    <button class="open-btn" onclick="openCard()">Click Me</button>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-container" id="cardContainer">
+    <div class="card">
+      <div class="confetti" id="confetti"></div>
+      <p class="message">
+        May you have as great of a day as you are a great sister. I love you so much.<br>– Your bro Carlos
+      </p>
+
+      <div class="carousel">
+        <!-- Replace with your actual images -->
+        <img src="https://via.placeholder.com/300x200/ff69b4/fff?text=1" alt="Photo 1" />
+        <img src="https://via.placeholder.com/300x200/a020f0/fff?text=2" alt="Photo 2" />
+        <img src="https://via.placeholder.com/300x200/ff1493/fff?text=3" alt="Photo 3" />
+        <img src="https://via.placeholder.com/300x200/ba55d3/fff?text=4" alt="Photo 4" />
+        <img src="https://via.placeholder.com/300x200/dc143c/fff?text=5" alt="Photo 5" />
       </div>
     </div>
   </div>
 
   <script>
     function openCard() {
-      const inside = document.getElementById('cardInside');
-      inside.style.display = 'block';
+      document.getElementById('introScreen').style.display = 'none';
+      document.getElementById('cardContainer').style.display = 'flex';
       startConfetti();
     }
 
