@@ -1,29 +1,196 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday 🎉</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <title>Digital Birthday Card</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      opacity: 0.8;
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .card {
+      width: 600px;
+      height: 400px;
+      margin: 100px auto;
+      perspective: 1200px;
+      cursor: pointer;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .card.open .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-front {
+      background: #ff6f91;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .glow-text {
+      font-size: 3em;
+      color: #fff;
+      text-shadow: 0 0 5px #fff,
+                   0 0 10px #ff66cc,
+                   0 0 20px #ff66cc,
+                   0 0 30px #ff66cc;
+      text-align: center;
+    }
+
+    .card-back {
+      background: #fff;
+      transform: rotateY(180deg);
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    .message {
+      font-size: 1.5em;
+      color: #444;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .carousel-images {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      transition: transform 1s ease-in-out;
+    }
+
+    .carousel-images img {
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="confetti-container"></div>
+  <div class="confetti" id="confetti"></div>
 
-  <div class="card">
-    <h1 class="title">Happy Birthday!</h1>
-    <p class="message">Wishing you endless joy and unforgettable memories! 💕</p>
-
-    <div class="carousel">
-      <div class="carousel-track">
-        <img src="https://placekitten.com/300/200" alt="Pic 1" />
-        <img src="https://placekitten.com/301/200" alt="Pic 2" />
-        <img src="https://placekitten.com/302/200" alt="Pic 3" />
+  <div class="card" onclick="openCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <div class="glow-text">🎂 Happy Birthday! 🎉</div>
+      </div>
+      <div class="card-back">
+        <div class="message">
+          Wishing you a day filled with happiness, joy, and lots of cake! 🎈💖
+        </div>
+        <div class="carousel">
+          <div class="carousel-images" id="carouselImages">
+            <img src="https://placekitten.com/600/200" alt="1">
+            <img src="https://placebear.com/600/200" alt="2">
+            <img src="https://picsum.photos/600/200?random=3" alt="3">
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    function openCard(card) {
+      card.classList.toggle("open");
+      if (card.classList.contains("open")) {
+        startConfetti();
+        startCarousel();
+      }
+    }
+
+    function startConfetti() {
+      const container = document.getElementById("confetti");
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti-piece");
+
+        // Random color, size, position, and animation duration
+        const colors = ["#f00", "#0f0", "#00f", "#ff0", "#0ff", "#f0f"];
+        const size = Math.floor(Math.random() * 8) + 4;
+        confetti.style.width = size + "px";
+        confetti.style.height = size + "px";
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+        confetti.style.top = Math.random() * -20 + "px";
+
+        container.appendChild(confetti);
+
+        // Remove confetti after animation ends
+        setTimeout(() => {
+          container.removeChild(confetti);
+        }, 5000);
+      }
+    }
+
+    function startCarousel() {
+      const carousel = document.getElementById("carouselImages");
+      let index = 0;
+      setInterval(() => {
+        index = (index + 1) % 3;
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
