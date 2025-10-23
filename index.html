@@ -195,12 +195,21 @@
 }
 
 .video-container video {
+  height: 500px;       /* match card height */
+  width: auto;          /* maintain aspect ratio */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+  display: block;
+  margin: 0 auto;       /* center horizontally */
+}
+
+/*.video-container video {
   width: 100%;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(255,255,255,0.3);
   max-height: 500px;    /* <-- add this */
-  object-fit: cover;     /* <-- add this */
-}
+ /* object-fit: cover;     /* <-- add this */
+/*}*/
 
  
 
