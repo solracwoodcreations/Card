@@ -186,7 +186,7 @@
 .video-container {
   width: 70vw;          /* 85% of viewport width */
   max-width: 300px;     /* max width cap */
-  aspect-ratio: 4 / 5;  /* keeps correct shape */
+  aspect-ratio: 6 / 7;  /* keeps correct shape */
   margin: 1.5rem auto;
   overflow: hidden;
   
@@ -209,7 +209,13 @@ border-radius: 16px;
   border: none;
 }
 
-@media screen and (orientation: landscape) and (max-width: 900px)
+@media screen and (orientation: landscape) and (max-width: 900px) {
+  .video-container {
+    max-width: 90vw;
+    max-height: 85vh;
+    aspect-ratio: 16 / 9; /* makes it fit nicely like the carousel */
+  }
+}
 
 /* Match video sizing to carousel style */
  
