@@ -182,6 +182,38 @@
   margin-bottom: 0.5rem;
   font-family: 'Great Vibes', cursive;
 }
+.video-container {
+  width: 85vw;          /* 85% of viewport width */
+  max-width: 300px;     /* max width cap */
+  aspect-ratio: 2 / 3;  /* keeps correct shape */
+  margin: 1.5rem auto;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.10);
+  background: #000;
+  position: relative;
+}
+
+ 
+
+/* For local <video> files: make the <video> element behave like the iframe */
+.video-container.local-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* change to contain if you prefer letterbox */
+  display: block;
+  border: none;
+}
+
+/* Match video sizing to carousel style */
+.video-container {
+  width: 70vw;
+  max-width: 700px;
+  aspect-ratio: 4 / 5;  /* shorter, landscape-friendly shape */
+}
+
+
+    
      
 
 /*.video-container video {
